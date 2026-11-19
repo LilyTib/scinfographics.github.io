@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Story Title</title>
+<meta name="description" content="One sentence about the story.">
+<meta property="og:title" content="Your Story Title">
+<meta property="og:description" content="One sentence about the story.">
+<meta property="og:image" content="img/social.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<style>
+  :root { --bg:#faf6ee; --ink:#1c1c1c; --accent:#d9822b; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink);
+         font-family:Georgia, serif; font-size:1.2rem; line-height:1.7; }
+  .wrap { max-width:640px; margin:0 auto; padding:0 1.25rem; }
+  .tag { font-family:system-ui, sans-serif; font-size:.8rem; letter-spacing:.15em;
+         text-transform:uppercase; color:var(--accent); margin-top:4rem; }
+  h1 { font-size:clamp(2.4rem, 7vw, 4rem); line-height:1.1; margin:.5rem 0 1.5rem; }
+  h2 { font-family:system-ui, sans-serif; font-size:1rem; letter-spacing:.1em;
+       text-transform:uppercase; margin-top:4rem; }
+  .big { font-family:system-ui, sans-serif; font-weight:800;
+         font-size:clamp(3rem, 12vw, 6rem); color:var(--accent);
+         line-height:1; margin:3rem 0 .25rem; }
+  .big small { display:block; font-size:1.2rem; font-weight:400; color:var(--ink); }
+  .full { width:100%; margin:3rem 0; }
+  .full img { width:100%; display:block; }
+  .caption { font-family:system-ui, sans-serif; font-size:.85rem; opacity:.7;
+             max-width:640px; margin:.5rem auto 0; padding:0 1.25rem; }
+  .fade { opacity:0; transform:translateY(24px); transition:all .8s ease; }
+  .fade.show { opacity:1; transform:none; }
+  .method { font-size:1rem; font-family:system-ui, sans-serif; }
+  footer { margin:5rem 0 3rem; font-family:system-ui, sans-serif;
+           font-size:.85rem; opacity:.7; }
+  a { color:var(--accent); }
+</style>
+</head>
+
+<body>
+<div class="wrap">
+  <p class="tag">Your section name</p>
+  <h1>Your Story Title</h1>
+  <p>Your opening paragraph. Keep it short and set up the question.</p>
+</div>
+
+<div class="full fade"><img src="img/illustration-1.png" alt="Describe the image"></div>
+
+<div class="wrap">
+  <p class="fade">Next beat of the story. One or two short paragraphs per beat.</p>
+
+  <div class="big fade">10,000,000<small>your big number label</small></div>
+
+  <p class="fade">What that number means.</p>
+</div>
+
+<div class="full fade"><img src="img/illustration-2.png" alt="Describe the image"></div>
+<p class="caption">Optional caption for the illustration.</p>
+
+<div class="wrap">
+  <p class="fade">Your conclusion.</p>
+
+  <h2>Methodology</h2>
+  <p class="method">Explain how you got your numbers, what you assumed, and what you ignored.</p>
+
+  <h2>Sources</h2>
+  <p class="method"><a href="https://example.com">Source name</a>, Publisher.</p>
+
+  <footer>Your name · <a href="https://instagram.com/you">Instagram</a><br>© Your name</footer>
+</div>
+
+<script>
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.fade').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
