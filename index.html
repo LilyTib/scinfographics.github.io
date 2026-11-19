@@ -1,80 +1,235 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Same family, different lungs</title>
-<meta name="description" content="One sentence about the story.">
-<meta property="og:title" content="Your Story Title">
-<meta property="og:description" content="One sentence about the story.">
-<meta property="og:image" content="img/social.jpg">
-<meta name="twitter:card" content="summary_large_image">
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Same family, different lungs: why yaks thrive where cattle fail</title>
 <style>
-  :root { --bg:#faf6ee; --ink:#1c1c1c; --accent:#d9822b; }
-  * { box-sizing:border-box; }
-  body { margin:0; background:var(--bg); color:var(--ink);
-         font-family:Georgia, serif; font-size:1.2rem; line-height:1.7; }
-  .wrap { max-width:640px; margin:0 auto; padding:0 1.25rem; }
-  .tag { font-family:system-ui, sans-serif; font-size:.8rem; letter-spacing:.15em;
-         text-transform:uppercase; color:var(--accent); margin-top:4rem; }
-  h1 { font-size:clamp(2.4rem, 7vw, 4rem); line-height:1.1; margin:.5rem 0 1.5rem; }
-  h2 { font-family:system-ui, sans-serif; font-size:1rem; letter-spacing:.1em;
-       text-transform:uppercase; margin-top:4rem; }
-  .big { font-family:system-ui, sans-serif; font-weight:800;
-         font-size:clamp(3rem, 12vw, 6rem); color:var(--accent);
-         line-height:1; margin:3rem 0 .25rem; }
-  .big small { display:block; font-size:1.2rem; font-weight:400; color:var(--ink); }
-  .full { width:100%; margin:3rem 0; }
-  .full img { width:100%; display:block; }
-  .caption { font-family:system-ui, sans-serif; font-size:.85rem; opacity:.7;
-             max-width:640px; margin:.5rem auto 0; padding:0 1.25rem; }
-  .fade { opacity:0; transform:translateY(24px); transition:all .8s ease; }
-  .fade.show { opacity:1; transform:none; }
-  .method { font-size:1rem; font-family:system-ui, sans-serif; }
-  footer { margin:5rem 0 3rem; font-family:system-ui, sans-serif;
-           font-size:.85rem; opacity:.7; }
-  a { color:var(--accent); }
+:root{--bg:#eaf0f4;--ink:#14232e;--mut:#5b6c79;--yak:#1b6e7a;--cow:#d1495b;--line:#b9c7d1;--ph:#d6e0e8;--card:#f6f9fb}
+@media(prefers-color-scheme:dark){:root{--bg:#10191f;--ink:#e6eef3;--mut:#93a5b2;--yak:#4fb6c4;--cow:#ee7385;--line:#2f424e;--ph:#1c2a33;--card:#16222a}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+h1,h2{font-family:"Iowan Old Style",Georgia,serif;line-height:1.15;margin:0 0 .6em}
+h1{font-size:clamp(2rem,6vw,3.4rem);max-width:16em}
+h2{font-size:1.5rem}
+header{padding:12vh 6vw 6vh;max-width:60rem}
+header p{color:var(--mut);max-width:34em}
+.wrap{display:grid;grid-template-columns:1fr}
+.stage{position:sticky;top:0;height:46vh;z-index:2;background:var(--bg);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:center}
+.stage svg{width:100%;height:100%;max-width:520px}
+.step{min-height:80vh;padding:8vh 6vw;opacity:.35;transition:opacity .3s}
+.step.on{opacity:1}
+.step p{max-width:30em}
+.src{font-size:.8rem;color:var(--mut);margin-top:1.2em}
+@media(min-width:860px){
+.wrap{grid-template-columns:minmax(0,5fr) minmax(0,6fr)}
+.stage{grid-column:2;grid-row:1;height:100vh;border:0}
+.steps{grid-column:1;grid-row:1}
+.step{padding:8vh 4vw 8vh 6vw}}
+.sc{opacity:0;transition:opacity .4s;pointer-events:none}
+.sc.on{opacity:1}
+.t{font:12px system-ui,sans-serif;fill:var(--ink)}
+.m{font:11px system-ui,sans-serif;fill:var(--mut)}
+.ph{fill:var(--ph);stroke:var(--mut);stroke-dasharray:4 4}
+.dot{fill:var(--line);transition:fill .3s}
+.dot.lit{fill:var(--cow)}
+.sq{fill:var(--line)}
+.sq.car{fill:var(--cow)}
+#art{fill:none;stroke:var(--cow);transition:stroke-width .6s}
+footer{padding:8vh 6vw;border-top:1px solid var(--line);color:var(--mut);font-size:.9rem}
+footer li{margin:.4em 0;max-width:46em}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
 </style>
 </head>
-
 <body>
-<div class="wrap">
-  <p class="tag">Your section name</p>
-  <h1>Same family, different lungs</h1>
-  <p>Yaks and cattle share almost every gene. At 3,000 metres, one keeps grazing and the other can die of heart failure. Why?</p>
-</div>
-
-<div class="full fade"><img src="img/illustration-1.png" alt="Describe the image"></div>
+<header>
+<h1>Same family, different lungs</h1>
+<p>Yaks and cattle share almost every gene. At 3,000 metres, one keeps grazing and the other can die of heart failure. Scroll to find out why.</p>
+</header>
 
 <div class="wrap">
-  <p class="fade">Next beat of the story. One or two short paragraphs per beat.</p>
+<div class="stage" aria-hidden="true">
+<svg viewBox="0 0 400 300" role="img" aria-label="Illustration that changes as you scroll">
 
-  <div class="big fade">10,000,000<small>your big number label</small></div>
+<g class="sc" id="g1">
+<rect class="ph" x="30" y="70" width="150" height="150" rx="8"/>
+<rect class="ph" x="220" y="70" width="150" height="150" rx="8"/>
+<text class="t" x="105" y="140" text-anchor="middle">COW</text>
+<text class="t" x="295" y="140" text-anchor="middle">YAK</text>
+<text class="m" x="105" y="160" text-anchor="middle">illustration placeholder</text>
+<text class="m" x="295" y="160" text-anchor="middle">illustration placeholder</text>
+<line x1="200" y1="60" x2="200" y2="240" stroke="var(--line)"/>
+</g>
 
-  <p class="fade">What that number means.</p>
+<g class="sc" id="g2">
+<g id="dots"></g>
+<text class="t" x="200" y="285" text-anchor="middle" id="dotlab"></text>
+</g>
+
+<g class="sc" id="g3">
+<rect x="30" y="120" width="130" height="36" fill="var(--yak)" opacity=".75"/>
+<rect x="160" y="120" width="60" height="36" fill="#d9a441" opacity=".85"/>
+<rect x="220" y="120" width="150" height="36" fill="var(--cow)" opacity=".85"/>
+<text class="t" x="95" y="144" text-anchor="middle">39 or less</text>
+<text class="t" x="190" y="144" text-anchor="middle">40–49</text>
+<text class="t" x="295" y="144" text-anchor="middle">50 or more</text>
+<text class="m" x="95" y="175" text-anchor="middle">lower risk</text>
+<text class="m" x="190" y="175" text-anchor="middle">caution</text>
+<text class="m" x="295" y="175" text-anchor="middle">high risk</text>
+<text class="t" x="200" y="95" text-anchor="middle">Lung artery pressure (mmHg)</text>
+<text class="m" x="200" y="205" text-anchor="middle">Thresholds vary by source (39 vs 41)</text>
+</g>
+
+<g class="sc" id="g4">
+<circle cx="200" cy="140" r="70" fill="none" stroke="var(--line)" stroke-width="1"/>
+<circle id="art" cx="200" cy="140" r="56" stroke-width="6"/>
+<text class="t" x="200" y="144" text-anchor="middle">blood flow</text>
+<text class="m" x="200" y="250" text-anchor="middle">Schematic artery cross-section (placeholder)</text>
+</g>
+
+<g class="sc" id="g5">
+<line x1="50" y1="250" x2="370" y2="250" stroke="var(--mut)"/>
+<line x1="50" y1="30" x2="50" y2="250" stroke="var(--mut)"/>
+<text class="m" x="210" y="275" text-anchor="middle">Altitude (m)</text>
+<text class="m" x="8" y="22">mmHg</text>
+<text class="m" x="50" y="264" text-anchor="middle">0</text>
+<text class="m" x="329" y="264" text-anchor="middle">3,048</text>
+<polyline points="50,191 329,141" fill="none" stroke="var(--cow)" stroke-width="3"/>
+<circle cx="50" cy="191" r="4" fill="var(--cow)"/><circle cx="329" cy="141" r="4" fill="var(--cow)"/>
+<text class="t" x="340" y="136" fill="var(--cow)" style="fill:var(--cow)">cattle</text>
+<text class="m" x="56" y="183">28</text><text class="m" x="305" y="131">34.8</text>
+<line x1="50" y1="200" x2="329" y2="200" stroke="var(--yak)" stroke-width="3" stroke-dasharray="7 6"/>
+<text class="t" x="340" y="204" style="fill:var(--yak)">yak</text>
+<text class="m" x="190" y="222" text-anchor="middle">Placeholder: flat line, no mmHg values yet</text>
+</g>
+
+<g class="sc" id="g6">
+<rect class="ph" x="30" y="50" width="160" height="190" rx="8"/>
+<rect class="ph" x="210" y="50" width="160" height="190" rx="8"/>
+<text class="t" x="110" y="120" text-anchor="middle">Cattle lung</text>
+<text class="t" x="290" y="120" text-anchor="middle">Yak lung</text>
+<text class="m" x="290" y="145" text-anchor="middle">larger lungs and heart</text>
+<text class="m" x="290" y="162" text-anchor="middle">thinner blood–air barrier</text>
+<text class="m" x="290" y="179" text-anchor="middle">little artery muscle</text>
+<text class="m" x="110" y="150" text-anchor="middle">anatomy placeholder</text>
+</g>
+
+<g class="sc" id="g7">
+<g id="waf"></g>
+</g>
+
+<g class="sc" id="g8">
+<text class="t" x="200" y="40" text-anchor="middle">cow × yak</text>
+<line x1="200" y1="48" x2="200" y2="85" stroke="var(--mut)"/>
+<text class="t" x="200" y="105" text-anchor="middle" style="fill:var(--yak)">dzo: yak-like lungs</text>
+<text class="m" x="200" y="122" text-anchor="middle">× bull</text>
+<line x1="200" y1="130" x2="110" y2="180" stroke="var(--mut)"/>
+<line x1="200" y1="130" x2="290" y2="180" stroke="var(--mut)"/>
+<text class="t" x="110" y="200" text-anchor="middle" style="fill:var(--yak)">stol: yak-like</text>
+<text class="t" x="290" y="200" text-anchor="middle" style="fill:var(--cow)">stol: cow-like</text>
+<text class="m" x="200" y="250" text-anchor="middle">About half and half (family tree placeholder)</text>
+</g>
+
+</svg>
 </div>
 
-<div class="full fade"><img src="img/illustration-2.png" alt="Describe the image"></div>
-<p class="caption">Optional caption for the illustration.</p>
+<div class="steps">
+<section class="step" data-s="g1">
+<h2>A swollen brisket</h2>
+<p>Some cattle moved to high pastures develop fluid swelling from the head down through the brisket. It is the visible sign of heart failure. Yaks live higher and don’t get it. What’s different?</p>
+<p class="src">Source: Stearns et al., Animals, 2024</p>
+</section>
 
-<div class="wrap">
-  <p class="fade">Your conclusion.</p>
+<section class="step" data-s="g2" data-n="5">
+<h2>It’s rare at home, common when moved</h2>
+<p>Among cattle native to altitude, 0.5 to 5% get the disease. Up to 5% of cattle at or above 6,500 ft die this way in a year.</p>
+<p class="src">Sources: Shirley &amp; Garrick, BIF 2007; Merck Veterinary Manual via CSU</p>
+</section>
 
-  <h2>Methodology</h2>
-  <p class="method">Explain how you got your numbers, what you assumed, and what you ignored.</p>
+<section class="step" data-s="g2" data-n="40">
+<h2>Move them up, and it gets worse</h2>
+<p>For cattle moved above 5,000 ft, the figure is 10 to 40%. On one Colorado ranch above 8,000 ft, half of the calves that died between branding and weaning died of high-altitude disease.</p>
+<p class="src">Sources: Shirley &amp; Garrick, BIF 2007; Neary, cited in Utah Beef Improvement Association report</p>
+</section>
 
-  <h2>Sources</h2>
-  <p class="method"><a href="https://example.com">Source name</a>, Publisher.</p>
+<section class="step" data-s="g3">
+<h2>How vets measure a struggling lung</h2>
+<p>Ranchers thread a catheter into the jugular vein to read the pressure in the lung’s main artery. At 5,500 to 7,000 ft, 39 mmHg or lower suggests low risk. 50 or more means high risk.</p>
+<p class="src">Source: Colorado State University, via Canadian Cattlemen</p>
+</section>
 
-  <footer>Your name · <a href="https://instagram.com/you">Instagram</a><br>© Your name</footer>
+<section class="step" data-s="g4" data-n="24">
+<h2>The squeeze</h2>
+<p>Low oxygen makes the small lung arteries constrict, which raises pressure. Over time the vessel walls thicken. The heart works harder against that pressure until the right side fails.</p>
+<p class="src">Source: Patent background on cattle pulmonary hypertension (US 10138522)</p>
+</section>
+
+<section class="step" data-s="g5">
+<h2>Cattle climb. Yaks stay flat.</h2>
+<p>In one classic dataset, young cattle averaged about 28 mmHg at sea level and about 35 at 3,048 m. In Ladakh, yaks at 4,500 m had lung pressure no different from yaks bred at low altitude.</p>
+<p class="src">Sources: Exp Biol Med (cattle table); Anand et al., Thorax, 1986. Yak values still needed.</p>
+</section>
+
+<section class="step" data-s="g6">
+<h2>Built differently</h2>
+<p>Yaks have relatively larger lungs and hearts and pulmonary arteries with little smooth muscle. In a lab test, low oxygen made cattle artery cells multiply. Yak cells didn’t react significantly.</p>
+<p class="src">Sources: Animals, 2021 review; Animals, 2024 (PDK1 study)</p>
+</section>
+
+<section class="step" data-s="g7">
+<h2>A gene clue</h2>
+<p>Of 20 cattle with pulmonary hypertension, 15 carried one variant of EPAS1, a gene also tied to Tibetan human altitude adaptation. Only 4 of 21 healthy cattle had it. Yaks carry their own hypoxia-related changes, including selection on three genes that cattle lack.</p>
+<p class="src">Sources: US patent 10138522; Qiu et al., Nature Genetics, 2012</p>
+</section>
+
+<section class="step" data-s="g8">
+<h2>The herder’s trick</h2>
+<p>Cross a cow with a yak and the offspring, called a dzo, has yak-like lung pressure. Cross that dzo with a bull and about half the calves look like yaks and half like cows. That pattern suggests a simple dominant trait.</p>
+<p class="src">Source: Anand et al., Thorax, 1986</p>
+</section>
+
+<section class="step" data-s="g1">
+<h2>Selecting for survival</h2>
+<p>Ranchers now test and cull for low pressure. There is a catch: sires whose offspring resisted the disease had lower weights and gains. And cases now show up in feedlots at elevations down to 3,000 ft.</p>
+<p class="src">Sources: J Anim Sci 2008; Utah Beef Improvement Association report</p>
+</section>
 </div>
+</div>
+
+<footer>
+<p><strong>About this draft:</strong> shaded boxes are illustration placeholders. Yak pressure values are not yet sourced, so the yak line is schematic.</p>
+<ul>
+<li>Anand et al. (1986). Pulmonary haemodynamics of the yak, cattle, and cross breeds at high altitude. Thorax 41(9).</li>
+<li>Anand et al. (1988). The pulmonary circulation of some domestic animals at high altitude. Int J Biometeorol 32(1).</li>
+<li>Qiu et al. (2012). The yak genome and adaptation to life at high altitude. Nature Genetics 44(8).</li>
+<li>Stearns et al. (2024). The Use of Pulmonary Arterial Pressure (PAP) for Improved Beef Cattle Management. Animals 14.</li>
+<li>Shirley &amp; Garrick (2007). New method for evaluating susceptibility to high altitude disease. BIF Conference.</li>
+</ul>
+</footer>
 
 <script>
-  const io = new IntersectionObserver(entries => {
-    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
-  }, { threshold: 0.15 });
-  document.querySelectorAll('.fade').forEach(el => io.observe(el));
+const NS="http://www.w3.org/2000/svg";
+function mk(p,t,a){const e=document.createElementNS(NS,t);for(const k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e}
+const dots=[];const dg=document.getElementById("dots");
+for(let i=0;i<100;i++)dots.push(mk(dg,"circle",{class:"dot",cx:100+(i%10)*22,cy:40+Math.floor(i/10)*22,r:8}));
+function rows(g,y,n,car,label){mk(g,"text",{class:"t",x:30,y:y-12}).textContent=label;
+for(let i=0;i<n;i++)mk(g,"rect",{class:"sq"+(i<car?" car":""),x:30+i*16,y:y,width:13,height:13,rx:2})}
+const wg=document.getElementById("waf");
+rows(wg,90,20,15,"Pulmonary hypertension: 15 of 20 carry the variant");
+rows(wg,180,21,4,"Unaffected: 4 of 21 carry it");
+const art=document.getElementById("art"),lab=document.getElementById("dotlab");
+const scenes=[...document.querySelectorAll(".sc")];
+function show(s){
+scenes.forEach(g=>g.classList.toggle("on",g.id===s.dataset.s));
+const n=+s.dataset.n;
+if(s.dataset.s==="g2"){dots.forEach((d,i)=>d.classList.toggle("lit",i<n));lab.textContent=n+" of 100 cattle affected (illustrative, "+(n===5?"top of native range":"up to 40% in moved cattle")+")"}
+if(s.dataset.s==="g4")art.setAttribute("stroke-width",n);
+}
+const steps=[...document.querySelectorAll(".step")];
+const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){steps.forEach(x=>x.classList.remove("on"));e.target.classList.add("on");show(e.target)}})},{rootMargin:"-45% 0px -45% 0px"});
+steps.forEach(s=>io.observe(s));
+show(steps[0]);steps[0].classList.add("on");
 </script>
 </body>
 </html>
