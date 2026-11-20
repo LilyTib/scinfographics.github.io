@@ -9,33 +9,35 @@
 @media(prefers-color-scheme:dark){:root{--bg:#1f1d0e;--ink:#f6f2d8;--mut:#b8b184;--yak:#6fd17f;--cow:#ff9055;--line:#4a4520;--ph:#2f2c14;--card:#2a2712}}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
-h1,h2{font-family:"Iowan Old Style",Georgia,serif;line-height:1.15;margin:0 0 .6em}
-h1{font-size:clamp(2rem,6vw,3.4rem);max-width:16em}
-h2{font-size:1.5rem}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 1.25rem/1.5 nyt-imperial,Georgia,"Times New Roman",Times,serif;-webkit-font-smoothing:antialiased}
+h1,h2{font-family:nyt-cheltenham,Georgia,"Times New Roman",Times,serif;font-weight:700;line-height:1.15;margin:0 0 .6em}
+h1{font-size:clamp(2.125rem,5.5vw,3rem);line-height:1.1;letter-spacing:-.01em;max-width:16em}
+h2{font-size:1.5rem;line-height:1.25}
 header{padding:10vh 6vw 4vh;max-width:46rem;margin:0 auto;text-align:center}
 header h1{margin-left:auto;margin-right:auto}
-header p{color:var(--mut);margin:0 auto;max-width:32em}
+header p{color:var(--ink);font-size:1.375rem;line-height:1.4;margin:0 auto;max-width:30em}
 .wrap{position:relative}
 .stage{position:sticky;top:0;height:100vh;margin-bottom:-100vh;display:flex;align-items:flex-start;justify-content:center;padding-top:5vh;background:var(--bg)}
 .stage svg{width:100%;max-width:760px;height:auto}
 .steps{position:relative;z-index:3;padding-top:100vh}
-.step{width:min(92vw,25rem);margin:0 auto 70vh;padding:1.1rem 1.3rem;background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:0 6px 24px rgba(0,0,0,.12);opacity:.5;transition:opacity .3s}
+.step{width:min(92vw,29rem);margin:0 auto 70vh;padding:1.25rem 1.5rem;background:var(--card);border:1px solid var(--line);border-radius:6px;box-shadow:0 6px 24px rgba(0,0,0,.12);opacity:.5;transition:opacity .3s}
 .step.on{opacity:1}
 .step:last-child{margin-bottom:25vh}
-.step h2{font-size:1.25rem;margin-bottom:.4em}
-.step p{margin:.4em 0;font-size:.98rem;line-height:1.5}
-.src{font-size:.78rem;color:var(--mut);margin-top:.8em!important}
+.step h2{font-size:1.5rem;margin-bottom:.45em}
+.step p{margin:.5em 0;font-size:1.25rem;line-height:1.5}
+@media(max-width:600px){.step p{font-size:1.125rem}.step h2{font-size:1.375rem}}
+.src{font:400 .8125rem/1.4 nyt-franklin,"Franklin Gothic Medium",Arial,Helvetica,sans-serif!important;color:var(--mut);margin-top:1em!important}
+.src a{color:inherit;text-underline-offset:2px}
 @media(min-width:1000px){
-.stage{align-items:center;padding-top:0}
+.stage{align-items:center;padding-top:0;padding-left:calc(5vw + 29rem + 1.5rem);padding-right:3vw}
 .stage svg{max-width:820px}
 .step{margin:0 0 70vh 5vw}}
 .sc{opacity:0;transition:opacity .4s;pointer-events:none}
 .ctl{pointer-events:none}.sc.on .ctl{pointer-events:all}
 .steps{pointer-events:none}.step{pointer-events:auto}
 .sc.on{opacity:1}
-.t{font:12px system-ui,sans-serif;fill:var(--ink)}
-.m{font:11px system-ui,sans-serif;fill:var(--mut)}
+.t{font:12px nyt-franklin,"Franklin Gothic Medium",Arial,Helvetica,sans-serif;fill:var(--ink)}
+.m{font:11px nyt-franklin,"Franklin Gothic Medium",Arial,Helvetica,sans-serif;fill:var(--mut)}
 .ph{fill:var(--ph);stroke:var(--mut);stroke-dasharray:4 4}
 .dot{fill:var(--line);transition:fill .3s}
 .dot.lit{fill:var(--cow)}
@@ -57,8 +59,13 @@ header p{color:var(--mut);margin:0 auto;max-width:32em}
 @keyframes br{50%{transform:scale(1.035)}}
 @keyframes bt{0%,48%,100%{transform:scale(1)}12%{transform:scale(1.045)}36%{transform:scale(1.025)}}
 @media(prefers-reduced-motion:reduce){.sc.on .breath,.sc.on .beat{animation:none}}
-footer{padding:8vh 6vw;border-top:1px solid var(--line);color:var(--mut);font-size:.9rem}
-footer li{margin:.4em 0;max-width:46em}
+footer{position:relative;z-index:5;background:var(--bg);padding:10vh 6vw 12vh;color:var(--mut)}
+.sources{max-width:46rem;margin:0 auto}
+.sources .rule{width:4in;max-width:100%;height:0;border-top:1px solid var(--ink);margin:.5rem auto 1.8rem}
+.sources h2{font:700 1.5rem/1.25 nyt-cheltenham,Georgia,"Times New Roman",Times,serif;text-align:center;color:var(--ink);margin:0}
+.sources p{font:400 1.125rem/1.6 nyt-imperial,Georgia,"Times New Roman",Times,serif;color:var(--ink);margin:0}
+.sources a{font:inherit;color:inherit;text-decoration:underline;text-underline-offset:2px}
+.sources a:hover{color:var(--ink)}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto}}
 .walk{animation:walk 5s ease-in-out infinite alternate}
 .w2{animation-duration:6.5s;animation-delay:-2s}
@@ -81,7 +88,7 @@ g.ring,circle.ring,text.ring{opacity:0}
 <body>
 <header>
 <h1>99% the same, yet only one thrives in thin air</h1>
-<p>Yaks and cattle are about 99% alike genetically, a gap as small as the one between humans and chimpanzees. Yet take a cow high into the mountains and its heart can fail, while a yak just keeps grazing. The reasons run from lungs and arteries all the way down to genes.</p>
+<p>Yaks and cattle split from a common ancestor only about 4.9 million years ago, around when humans and chimpanzees parted ways, and their proteins are over 99% similar. Yet a cow taken high into the mountains can die of heart failure, while a yak just keeps grazing. What is the small difference that matters? Follow the clues, from a swollen chest down to the genes.</p>
 </header>
 
 <figure style="margin:0 auto;padding:0 6vw 12vh;max-width:36rem">
@@ -327,71 +334,69 @@ g.ring,circle.ring,text.ring{opacity:0}
 <div class="steps">
 <section class="step" data-s="g1">
 <h2>A swollen brisket</h2>
-<p>Some cattle moved to high pastures develop fluid swelling from the head down through the brisket. It is the visible sign of heart failure. Yaks live higher and don’t get it. What’s different?</p>
-<p class="src">Source: Stearns et al., Animals, 2024</p>
+<p>Start with the symptom. Some cattle moved to high pastures develop fluid swelling from the head down through the brisket, the chest under the neck. It is the visible sign of heart failure. Yaks live higher and don’t get it. How common is it?</p>
+<p class="src">Source: <a href="https://www.mdpi.com/2076-2615/14/16/2430" target="_blank" rel="noopener">Stearns et al., Animals, 2024</a></p>
 </section>
 
 <section class="step" data-s="g2" data-n="5">
-<h2>It’s rare at home, common when moved</h2>
+<h2>Rare at home</h2>
 <p>Among cattle native to altitude, 0.5 to 5% get the disease. Up to 5% of cattle at or above about 2,000 m die this way in a year.</p>
-<p class="src">Sources: Shirley &amp; Garrick, BIF 2007; Merck Veterinary Manual via CSU</p>
+<p class="src">Sources: <a href="https://www.bifconference.com/bif2007/newsroom_pdf/3Friday/BIF07CHEAKonniShirley.pdf" target="_blank" rel="noopener">Shirley &amp; Garrick, BIF 2007</a>; <a href="https://www.msdvetmanual.com/circulatory-system/bovine-high-mountain-disease/bovine-high-mountain-disease" target="_blank" rel="noopener">Merck Veterinary Manual (Holt, CSU)</a></p>
 </section>
 
 <section class="step" data-s="g2" data-n="40">
-<h2>Move them up, and it gets worse</h2>
-<p>For cattle moved above about 1,500 m, the figure is 10 to 40%. On one Colorado ranch above about 2,400 m, half of the calves that died between branding and weaning died of high-altitude disease.</p>
-<p class="src">Sources: Shirley &amp; Garrick, BIF 2007; Neary, cited in Utah Beef Improvement Association report</p>
+<h2>Common when moved up</h2>
+<p>For cattle moved above about 1,500 m, the figure is 10 to 40%. On one Colorado ranch above about 2,400 m, half of the calves that died between branding and weaning died of high-altitude disease. The trouble starts in the lungs.</p>
+<p class="src">Sources: <a href="https://www.bifconference.com/bif2007/newsroom_pdf/3Friday/BIF07CHEAKonniShirley.pdf" target="_blank" rel="noopener">Shirley &amp; Garrick, BIF 2007</a>; Neary, cited in <a href="https://nacaa.com.customers.tigertech.net/journal/index.php?jid=1141" target="_blank" rel="noopener">Chapman et al., Utah Beef Improvement Association report</a></p>
 </section>
 
 <section class="step" data-s="g3a">
-<h2>How vets measure a struggling lung</h2>
-<p>Ranchers thread a catheter into the jugular vein to read the pressure in the lung’s main artery.</p>
-<p class="src">Source: Colorado State University, via Canadian Cattlemen</p>
+<h2>Looking inside the lung</h2>
+<p>To check, vets measure the pressure in the lung’s main artery. Ranchers thread a catheter into the jugular vein to read it.</p>
+<p class="src">Source: <a href="https://www.canadiancattlemen.ca/?p=110013" target="_blank" rel="noopener">Colorado State University, via Canadian Cattlemen</a></p>
 </section>
 
 <section class="step" data-s="g3">
-<h2>Reading the number (cattle)</h2>
-<p>For cattle tested at about 1,700 to 2,100 m, 39 mmHg or lower suggests low risk. 50 or more means high risk. These cutoffs were set for cattle, not yaks.</p>
-<p class="src">Source: Colorado State University, via Canadian Cattlemen</p>
+<h2>What the number says</h2>
+<p>For cattle tested at about 1,700 to 2,100 m, 39 mmHg or lower suggests low risk. 50 or more means high risk. These cutoffs were set for cattle, not yaks. A high reading means the heart is pushing blood through arteries that have clamped down. Why would they?</p>
+<p class="src">Source: <a href="https://www.canadiancattlemen.ca/?p=110013" target="_blank" rel="noopener">Colorado State University, via Canadian Cattlemen</a></p>
 </section>
 
 <section class="step" data-s="g4" data-n="24">
 <h2>The squeeze</h2>
-<p>Low oxygen makes the small lung arteries constrict, which raises pressure. Over time the vessel walls thicken. The heart works harder against that pressure until the right side fails.</p>
+<p>Low oxygen makes the small lung arteries of cattle constrict, which raises pressure. Over time the vessel walls thicken, and the heart works harder against that pressure until the right side fails. A yak’s arteries barely react.</p>
 <p><strong>Try it:</strong> drag the elevation handle and watch the cattle artery wall thicken while the yak’s stays thin.</p>
-<p class="src">Source: Patent background on cattle pulmonary hypertension (US 10138522)</p>
+<p class="src">Source: <a href="https://patents.google.com/patent/US10138522" target="_blank" rel="noopener">Patent background on cattle pulmonary hypertension (US 10138522)</a></p>
 </section>
 
 <section class="step" data-s="g6">
 <h2>Built differently</h2>
-<p>Yaks have relatively larger lungs and hearts and pulmonary arteries with little smooth muscle. In a lab test, low oxygen made cattle artery cells multiply. Yak cells didn’t react significantly.</p>
-<p class="src">Sources: Animals, 2021 review; Animals, 2024 (PDK1 study)</p>
-</section>
-
-<section class="step" data-s="g7">
-<h2>A gene clue</h2>
-<p>Of 20 cattle with pulmonary hypertension, 15 carried one variant of EPAS1, a gene also tied to Tibetan human altitude adaptation. Only 4 of 21 healthy cattle had it. Yaks carry their own hypoxia-related changes, including selection on three genes that cattle lack.</p>
-<p class="src">Sources: US patent 10138522; Qiu et al., Nature Genetics, 2012</p>
+<p>Yaks have relatively larger lungs and hearts, and pulmonary arteries with little smooth muscle. In a lab test, low oxygen made cattle artery cells multiply. Yak cells didn’t react significantly. Is that learned from life at altitude, or inherited?</p>
+<p class="src">Sources: <a href="https://www.mdpi.com/2076-2615/11/8/2344" target="_blank" rel="noopener">Ayalew et al., Animals, 2021 (review)</a>; <a href="https://www.mdpi.com/2076-2615/14/16/2422" target="_blank" rel="noopener">Zhang et al., Animals, 2024 (PDK1 study)</a></p>
 </section>
 
 <section class="step" data-s="g8">
 <h2>The herder’s trick</h2>
-<p>Cross a cow with a yak and the offspring, called a dzo, has yak-like lung pressure. Cross that dzo with a cattle bull and the calves, called stols, split: about half have yak-like lung pressure and half have cow-like lung pressure. That even split suggests the trait is passed on as a simple dominant.</p>
-<p class="src">Source: Anand et al., Thorax, 1986</p>
+<p>Yaks and cattle can interbreed, which lets researchers test that question. A cow crossed with a yak gives a dzo, whose lung pressure is yak-like. Cross that dzo with a cattle bull and the calves, called stols, split: about half have yak-like lung pressure and half have cow-like. That even split suggests a simple dominant trait. So it is inherited. Where in the DNA does it live?</p>
+<p class="src">Source: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC460434" target="_blank" rel="noopener">Anand et al., Thorax, 1986</a></p>
+</section>
+
+<section class="step" data-s="g7">
+<h2>Where the 1% lives</h2>
+<p>Comparing the two genomes, researchers found yak gene families expanded for sensing the environment and for energy metabolism, plus selection on genes tied to low oxygen and nutrition, including three hypoxia-response genes selected in yaks but not in cattle. In cattle, 15 of 20 with pulmonary hypertension carried one variant of EPAS1, a gene also tied to Tibetan human altitude adaptation. Only 4 of 21 healthy cattle had it.</p>
+<p>Nearly identical animals, a small set of changes in how the body answers thin air.</p>
+<p class="src">Sources: <a href="https://doi.org/10.1038/ng.2343" target="_blank" rel="noopener">Qiu et al., Nature Genetics, 2012</a>; <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4399003" target="_blank" rel="noopener">Newman et al., Nature Communications, 2015</a></p>
 </section>
 
 </div>
 </div>
 
 <footer>
-<p><strong>About this draft:</strong> shaded boxes are illustration placeholders.</p>
-<ul>
-<li>Anand et al. (1986). Pulmonary haemodynamics of the yak, cattle, and cross breeds at high altitude. Thorax 41(9).</li>
-<li>Anand et al. (1988). The pulmonary circulation of some domestic animals at high altitude. Int J Biometeorol 32(1).</li>
-<li>Qiu et al. (2012). The yak genome and adaptation to life at high altitude. Nature Genetics 44(8).</li>
-<li>Stearns et al. (2024). The Use of Pulmonary Arterial Pressure (PAP) for Improved Beef Cattle Management. Animals 14.</li>
-<li>Shirley &amp; Garrick (2007). New method for evaluating susceptibility to high altitude disease. BIF Conference.</li>
-</ul>
+<div class="sources">
+<h2>Sources</h2>
+<div class="rule"></div>
+<p><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC460434" target="_blank" rel="noopener">Anand et al., Thorax, 1986</a>, Pulmonary haemodynamics of the yak, cattle, and cross breeds at high altitude. <a href="https://doi.org/10.1007/bf01623996" target="_blank" rel="noopener">Anand et al., International Journal of Biometeorology, 1988</a>, The pulmonary circulation of some domestic animals at high altitude. <a href="https://doi.org/10.1038/ng.2343" target="_blank" rel="noopener">Qiu et al., Nature Genetics, 2012</a>, The yak genome and adaptation to life at high altitude. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4399003" target="_blank" rel="noopener">Newman et al., Nature Communications, 2015</a>, Increased prevalence of EPAS1 variant in cattle with high-altitude pulmonary hypertension. <a href="https://patents.google.com/patent/US10138522" target="_blank" rel="noopener">US patent 10138522</a>, Identification of cattle at risk of high altitude pulmonary hypertension, Vanderbilt University and Colorado State University Research Foundation. <a href="https://www.mdpi.com/2076-2615/14/16/2430" target="_blank" rel="noopener">Stearns et al., Animals, 2024</a>, The Use of Pulmonary Arterial Pressure (PAP) for Improved Beef Cattle Management. <a href="https://www.bifconference.com/bif2007/newsroom_pdf/3Friday/BIF07CHEAKonniShirley.pdf" target="_blank" rel="noopener">Shirley and Garrick, Beef Improvement Federation Conference, 2007</a>, New method for evaluating susceptibility to high altitude disease. <a href="https://www.msdvetmanual.com/circulatory-system/bovine-high-mountain-disease/bovine-high-mountain-disease" target="_blank" rel="noopener">Holt, Merck Veterinary Manual</a>, Bovine High-Mountain Disease, Colorado State University. <a href="https://www.canadiancattlemen.ca/?p=110013" target="_blank" rel="noopener">Canadian Cattlemen, July 2020</a>, Research at Colorado State University on pulmonary hypertension in high-altitude cattle. <a href="https://nacaa.com.customers.tigertech.net/journal/index.php?jid=1141" target="_blank" rel="noopener">Chapman, Garcia and Walburger, Journal of the NACAA, 2020</a>, Examining Trends in Pulmonary Arterial Pressure (PAP) of Yearling Bulls Enrolled in the Utah Beef Improvement Association Bull Performance Test. <a href="https://www.mdpi.com/2076-2615/11/8/2344" target="_blank" rel="noopener">Ayalew et al., Animals, 2021</a>, Adaptation Mechanisms of Yak (Bos grunniens) to High-Altitude Environmental Stress. <a href="https://www.mdpi.com/2076-2615/14/16/2422" target="_blank" rel="noopener">Zhang et al., Animals, 2024</a>, Study on the Regulatory Mechanism of the PDK1-Mediated TGF-β/Smad Signaling Pathway in Hypoxia-Induced Yak Lungs.</p>
+</div>
 </footer>
 
 <script>
