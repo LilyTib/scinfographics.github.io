@@ -240,17 +240,17 @@ a { color: inherit; }
 .fbar__val { position: absolute; left: 8px; top: 50%; transform: translateY(-50%); font-weight: 700; white-space: nowrap; color: var(--ink); }
 .fbar.on .fbar__val { color: var(--ink); }
 
-.answer { background: var(--navy); color: #fff; border-radius: 18px; padding: 40px clamp(22px, 4vw, 48px); margin-top: 20px; }
-.answer__kicker { font: 700 16px var(--sans); text-transform: uppercase; letter-spacing: .16em; color: var(--yellow); }
-.answer__chain { list-style: none; padding: 0; margin: 10px 0 24px; display: flex; flex-wrap: wrap; gap: 10px 0; }
-.answer__chain li { font-family: var(--display); font-size: clamp(22px, 2.4vw, 32px); line-height: 1.15; }
-.answer__chain li:not(:last-child)::after { content: "→"; font-family: var(--sans); color: var(--yellow); margin: 0 14px; }
-.answer__chain li:last-child { color: var(--yellow); }
-.answer.is-visible .answer__chain li { animation: chainin .5s both; }
-.answer__chain li:nth-child(2) { animation-delay: .35s !important; } .answer__chain li:nth-child(3) { animation-delay: .7s !important; }
-.answer__chain li:nth-child(4) { animation-delay: 1.05s !important; } .answer__chain li:nth-child(5) { animation-delay: 1.4s !important; }
-@keyframes chainin { from { opacity: 0; transform: translateX(-12px); } }
-.answer__context { font-size: 20px; color: #dcdcef; max-width: 70ch; margin: 0; }
+.answer { margin-top: 8px; padding: 0; max-width: 980px; }
+.answer__kicker { font: 700 14px var(--sans); text-transform: uppercase; letter-spacing: .14em; color: var(--red); margin: 0 0 6px; }
+.answer__chain { list-style: none; padding: 0; margin: 0 0 10px; display: flex; flex-wrap: wrap; gap: 4px 0; }
+.answer__chain li { font-family: var(--serif); font-weight: 700; font-size: 20px; line-height: 1.35; }
+.answer__chain li:not(:last-child)::after { content: "→"; font-family: var(--sans); font-weight: 400; color: var(--red); margin: 0 10px; }
+.answer__chain li:last-child { color: var(--red); }
+.answer.is-visible .answer__chain li { animation: chainin .45s both; }
+.answer__chain li:nth-child(2) { animation-delay: .25s !important; } .answer__chain li:nth-child(3) { animation-delay: .5s !important; }
+.answer__chain li:nth-child(4) { animation-delay: .75s !important; } .answer__chain li:nth-child(5) { animation-delay: 1s !important; }
+@keyframes chainin { from { opacity: 0; transform: translateX(-8px); } }
+.answer__context { font-size: 17px; line-height: 1.5; color: var(--muted); max-width: 72ch; margin: 0; }
 
 /* calf clock */
 .clock { margin-top: 44px; }
@@ -276,12 +276,25 @@ a { color: inherit; }
 .share__fill { height: 100%; width: 0; background: var(--green); color: #fff; display: flex; align-items: center; padding-left: 12px; white-space: nowrap; font-weight: 600; transition: width 1.6s ease .4s; overflow: hidden; }
 .demand.is-visible .share__fill { width: 62%; }
 .share__rest { color: var(--muted); }
-.equation-band { background: var(--navy); color: #fff; padding: 64px 0; margin-top: 64px; margin-bottom: -90px; }
+.equation-band { color: var(--ink); padding: 24px 0 0; margin-top: 56px; }
+.chapter--joined { border-top: 0; }
+.eq__lead { text-align: center; font: 700 15px var(--sans); text-transform: uppercase; letter-spacing: .14em; color: var(--muted); margin: 0 0 28px; }
+.equation { align-items: flex-start; }
+.eq { max-width: 250px; text-align: center; }
+.eq__op { align-self: flex-start; margin-top: clamp(4px, 1.4vw, 16px); }
+.eq__why { font: 16px/1.4 var(--sans); color: var(--ink-2); margin-top: 8px; }
+/* the equation builds left to right, one term at a time */
+.equation > * { opacity: 0; transform: translateY(14px); transition: opacity .5s ease, transform .5s ease; }
+.equation.is-visible > * { opacity: 1; transform: none; }
+.equation.is-visible > :nth-child(2) { transition-delay: .5s; }
+.equation.is-visible > :nth-child(3) { transition-delay: .9s; }
+.equation.is-visible > :nth-child(4) { transition-delay: 1.4s; }
+.equation.is-visible > :nth-child(5) { transition-delay: 1.8s; }
 .equation { display: flex; justify-content: center; align-items: center; gap: clamp(14px, 4vw, 56px); flex-wrap: wrap; }
 .eq { display: flex; flex-direction: column; align-items: center; gap: 6px; }
 .eq__word { font-family: var(--display); font-size: clamp(42px, 6vw, 80px); line-height: 1; }
 .eq__arrow { font-size: clamp(34px, 4vw, 52px); line-height: 1; display: inline-block; }
-.eq--supply { color: #ff4b55; } .eq--demand { color: #3bab52; } .eq--price { color: var(--yellow); }
+.eq--supply { color: var(--red); } .eq--demand { color: var(--green); } .eq--price { color: #c99a00; }
 .eq__op { font: 300 60px var(--sans); }
 .equation.is-visible .eq__arrow { animation: bob 1.6s ease-in-out infinite; }
 .equation.is-visible .eq--supply .eq__arrow { animation-name: sink; }
@@ -365,8 +378,10 @@ a { color: inherit; }
   .relief__item::before { left: 1px; }
   .relief__when { text-align: left; }
   .fly--hero { width: 60px; height: 60px; }
-  .answer__chain { flex-direction: column; }
-  .answer__chain li:not(:last-child)::after { content: "↓"; display: block; margin: 4px 0 0; font-size: 20px; }
+  .answer__chain li { font-size: 18px; }
+  .equation { flex-direction: column; align-items: center; gap: 4px; }
+  .eq__op { align-self: center; margin: 0; font-size: 40px; line-height: 1; }
+  .eq { max-width: 300px; }
   .split__bar { font-size: 12px; }
 }
 
@@ -435,7 +450,6 @@ a { color: inherit; }
     <!-- ============ 1. HERD ALREADY LOW ============ -->
     <section id="ch-herd" class="chapter" data-chapter="0">
       <div class="wrap">
-        <p class="chapter__num">Link 1</p>
         <h2 class="chapter__q">Wait — wasn’t beef getting expensive before the fly?</h2>
         <p class="chapter__a">Yes. The fly landed on a cattle herd that was already running short.</p>
       </div>
@@ -482,7 +496,6 @@ a { color: inherit; }
     <!-- ============ 2. THE FLY ARRIVES ============ -->
     <section id="ch-fly" class="chapter" data-chapter="1">
       <div class="wrap">
-        <p class="chapter__num">Link 2</p>
         <h2 class="chapter__q">What’s so bad about one fly?</h2>
         <p class="chapter__a">It eats cattle alive, and it was heading straight for the US.</p>
 
@@ -593,7 +606,6 @@ a { color: inherit; }
     <!-- ============ 3. BORDER CLOSES (centrepiece) ============ -->
     <section id="ch-border" class="chapter chapter--border" data-chapter="2">
       <div class="wrap">
-        <p class="chapter__num">Link 3 · The key link</p>
         <h2 class="chapter__q">So how does a fly in Mexico reach my grocery store?</h2>
         <p class="chapter__a">It closed the border to about a million cattle a year.</p>
       </div>
@@ -645,7 +657,7 @@ a { color: inherit; }
       </div>
       <div class="wrap">
         <div class="answer" data-reveal>
-          <p class="answer__kicker">That’s the link</p>
+          <p class="answer__kicker">The evidence so far</p>
           <ol class="answer__chain">
             <li>The fly spread into Mexico</li>
             <li>The US closed the border to Mexican cattle</li>
@@ -661,7 +673,6 @@ a { color: inherit; }
     <!-- ============ 4. CAN'T REFILL FAST ============ -->
     <section id="ch-refill" class="chapter" data-chapter="3">
       <div class="wrap">
-        <p class="chapter__num">Link 4</p>
         <h2 class="chapter__q">Can’t ranchers just raise more cattle?</h2>
         <p class="chapter__a">Not quickly. Cattle aren’t chickens.</p>
         <div class="clock" id="clock" data-reveal>
@@ -686,7 +697,6 @@ a { color: inherit; }
     <!-- ============ 5. DEMAND HOLDS ============ -->
     <section id="ch-demand" class="chapter" data-chapter="4">
       <div class="wrap">
-        <p class="chapter__num">Link 5</p>
         <h2 class="chapter__q">Doesn’t a high price make people buy less?</h2>
         <p class="chapter__a">Barely. Americans keep buying beef, and so does the rest of the world.</p>
         <div class="demand" data-reveal>
@@ -703,19 +713,20 @@ a { color: inherit; }
       </div>
       <div class="equation-band">
         <div class="wrap">
+          <p class="eq__lead">What it all adds up to</p>
           <div class="equation" data-reveal>
-            <div class="eq eq--supply"><span class="eq__word">Supply</span><span class="eq__arrow" aria-label="falls">▼</span></div>
+            <div class="eq eq--supply"><span class="eq__word">Supply</span><span class="eq__arrow" aria-label="falls">▼</span><span class="eq__why">Drought shrank the herd, then the border shut out Mexican cattle</span></div>
             <span class="eq__op">+</span>
-            <div class="eq eq--demand"><span class="eq__word">Demand</span><span class="eq__arrow" aria-label="holds">▲</span></div>
+            <div class="eq eq--demand"><span class="eq__word">Demand</span><span class="eq__arrow" aria-label="holds">▲</span><span class="eq__why">Shoppers trade down, not out, and exporters keep buying</span></div>
             <span class="eq__op">=</span>
-            <div class="eq eq--price"><span class="eq__word">Price</span><span class="eq__arrow" aria-label="rises">▲</span></div>
+            <div class="eq eq--price"><span class="eq__word">Price</span><span class="eq__arrow" aria-label="rises">▲</span><span class="eq__why">$9.64 a pound, up 69% since 2019</span></div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ============ 6. YOUR BILL ============ -->
-    <section id="ch-you" class="chapter" data-chapter="5">
+    <section id="ch-you" class="chapter chapter--joined" data-chapter="5">
       <div class="wrap">
         <p class="chapter__num">The bottom line</p>
         <h2 class="chapter__q">What does that mean for me?</h2>
@@ -876,7 +887,18 @@ window.STORY_DATA = {
   };
 
   /* ---------- the fly (one drawing, used everywhere) ---------- */
-  const FLY = `<svg viewBox="0 0 120 120" aria-hidden="true">
+  // Default fly: black body, blue thorax. The roaming fly gets its own
+  // metallic steel blue so readers can tell it apart.
+  const PLAIN = { thorax: "#3d8fe0", abdomen: "#231f20", head: "#231f20", eyes: "#e8846a", wing: "rgba(255,255,255,.85)", defs: "" };
+  const ROAMER = {
+    thorax: "url(#roam-thorax)", abdomen: "url(#roam-abdomen)", head: "#0a1830", eyes: "#e8846a",
+    wing: "rgba(230,240,255,.85)",
+    defs: `<defs>
+      <linearGradient id="roam-thorax" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9cc8ff"/><stop offset=".55" stop-color="#2f6fc4"/><stop offset="1" stop-color="#0e2f66"/></linearGradient>
+      <linearGradient id="roam-abdomen" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4a7ec8"/><stop offset=".6" stop-color="#1d4a8a"/><stop offset="1" stop-color="#0a1f40"/></linearGradient>
+    </defs>`
+  };
+  const flySVG = (c = PLAIN) => `<svg viewBox="0 0 120 120" aria-hidden="true">${c.defs}
     <g stroke="#231f20" stroke-width="2.2" fill="none" stroke-linecap="round" stroke-linejoin="round">
       <path class="leg leg--l arm" style="transform-origin:53px 47px" d="M53 47 L40 40 L33 29"/>
       <path class="leg leg--r arm" style="transform-origin:67px 47px" d="M67 47 L80 40 L87 29"/>
@@ -886,19 +908,19 @@ window.STORY_DATA = {
       <path class="leg leg--r back" style="transform-origin:67px 64px" d="M67 64 L79 74 L83 86"/>
     </g>
     <g class="wing wing--l" style="transform-origin:55px 56px" stroke="#231f20">
-      <path d="M55 54 Q28 70 30 104 Q42 108 57 70 Z" fill="rgba(255,255,255,.85)" stroke-width="1.6"/>
+      <path d="M55 54 Q28 70 30 104 Q42 108 57 70 Z" fill="${c.wing}" stroke-width="1.6"/>
       <path d="M50 64 L36 96 M54 66 L44 102" fill="none" stroke-width="1"/>
     </g>
     <g class="wing wing--r" style="transform-origin:65px 56px" stroke="#231f20">
-      <path d="M65 54 Q92 70 90 104 Q78 108 63 70 Z" fill="rgba(255,255,255,.85)" stroke-width="1.6"/>
+      <path d="M65 54 Q92 70 90 104 Q78 108 63 70 Z" fill="${c.wing}" stroke-width="1.6"/>
       <path d="M70 64 L84 96 M66 66 L76 102" fill="none" stroke-width="1"/>
     </g>
-    <ellipse cx="60" cy="80" rx="9" ry="18" fill="#231f20"/>
-    <ellipse cx="60" cy="56" rx="12" ry="11" fill="#3d8fe0" stroke="#231f20" stroke-width="2"/>
-    <ellipse cx="60" cy="38" rx="11" ry="9" fill="#231f20"/>
-    <circle cx="53" cy="35" r="6" fill="#e8846a"/><circle cx="67" cy="35" r="6" fill="#e8846a"/>
+    <ellipse cx="60" cy="80" rx="9" ry="18" fill="${c.abdomen}" stroke="#231f20" stroke-width="1.5"/>
+    <ellipse cx="60" cy="56" rx="12" ry="11" fill="${c.thorax}" stroke="#231f20" stroke-width="2"/>
+    <ellipse cx="60" cy="38" rx="11" ry="9" fill="${c.head}"/>
+    <circle cx="53" cy="35" r="6" fill="${c.eyes}"/><circle cx="67" cy="35" r="6" fill="${c.eyes}"/>
   </svg>`;
-  $$("[data-fly]").forEach((el) => (el.innerHTML = FLY));
+  $$("[data-fly]").forEach((el) => (el.innerHTML = flySVG(el.classList.contains("fly--hero") ? ROAMER : PLAIN)));
 
   /* ---------- reading progress ---------- */
   const bar = $(".progress__bar");
@@ -913,7 +935,7 @@ window.STORY_DATA = {
   $$("[data-count]").forEach((el) => onVisible(el, countUp, { threshold: 0.6 }));
   $$(".js-cases, #us-cases").forEach((el) => (el.textContent = D.usCases.count));
 
-  /* ---------- the fly: roams the whole screen, the whole way down ---------- */
+  /* ---------- the roaming fly: free flight over the whole screen, all the way down ---------- */
   (function roamingFly() {
     const fly = $(".fly--hero");
     if (!fly) return;
@@ -925,7 +947,6 @@ window.STORY_DATA = {
     let x = W * 0.6, y = H * 0.2, vx = -30, vy = 15, angle = 0;
     if (reduceMotion) { fly.classList.add("is-resting"); fly.style.transform = `translate(${x}px, ${y}px)`; return; }
     let tx, ty, speed, restUntil = 0, nextKick = 0;
-    // any spot on screen, edge to edge (below the chapter bar)
     const newTarget = () => { tx = rnd(0, W - S); ty = rnd(Math.min(70, H * 0.1), H - S); speed = rnd(60, 140); };
     newTarget();
     let last = performance.now();
@@ -1122,7 +1143,7 @@ window.STORY_DATA = {
       svgEl("text", { x: p.x + 18, y: p.y + 5 }, g).textContent = st.label;
       return { g, p };
     });
-    flyG.innerHTML = `<g transform="translate(-26 -26)"><svg width="52" height="52" viewBox="0 0 120 120">${FLY.replace(/^<svg[^>]*>|<\/svg>$/g, "")}</svg></g>`;
+    flyG.innerHTML = `<g transform="translate(-26 -26)"><svg width="52" height="52" viewBox="0 0 120 120">${flySVG().replace(/^<svg[^>]*>|<\/svg>$/g, "")}</svg></g>`;
     function setStep(n) {
       const st = stops[n - 1];
       trail.style.strokeDashoffset = String(100 - st.at * 100);
