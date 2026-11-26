@@ -1193,44 +1193,134 @@ window.STORY_DATA = {
       return row;
     });
     const LANES = [60, 115, 170, 230, 285, 340];
+    const CW = 46, CH = 32;                       // cow size
+    // Reopening: a single-file line at the inspected gap in the middle,
+    // with the rest of the herd waiting in a crowd on either side.
+    const LINE_X = 200 - CW / 2, LINE_Y0 = 214, LINE_GAP = 32, LINE_LEN = 6;
+    const CROWD = [];
+    for (let r = 0; r < 5; r++) for (const cx of [62, 114, 286, 338]) CROWD.push({ x: cx - CW / 2, y: 218 + r * 34 });
     const cows = [];
-    let mode = "open", spawnEvery = 260, lastSpawn = 0, running = false, lastT = 0;
-    const queue = LANES.map(() => 0);
+    const stack = LANES.map(() => 0);             // closed: how many are piled in each lane
+    let line = [];                                // trickle: queue order, front first
+    let mode = "open", lastSpawn = 0, lastRelease = 0, running = false, lastT = 0;
 
-    function spawn() {
-      // during the reopening, cattle squeeze through the inspected gap in the middle
-      const lane = mode === "trickle" ? -1 : Math.floor(Math.random() * LANES.length);
-      const cx = lane < 0 ? 200 : LANES[lane] + (Math.random() * 10 - 5);
-      const el = svgEl("use", { href: "#cow-head", width: 46, height: 32 }, cowsG);
-      cows.push({ el, lane, x: cx - 23, y: 400, v: mode === "trickle" ? 55 : 70 + Math.random() * 30, stopped: false });
+    function spawn(x) {
+      const lane = Math.floor(Math.random() * LANES.length);
+      const el = svgEl("use", { href: "#cow-head", width: CW, height: CH }, cowsG);
+      const c = { el, lane, x: x ?? LANES[lane] - CW / 2 + (Math.random() * 10 - 5), y: 400, v: 70 + Math.random() * 30, state: "walk", tx: 0, ty: 0, spot: -1 };
+      cows.push(c);
+      return c;
     }
+    const waiting = () => cows.filter((c) => c.y > 200 && c.state !== "go" && c.state !== "walkAbove");
+    const freeSpot = (c) => {
+      const used = new Set(cows.filter((o) => o.state === "crowd").map((o) => o.spot));
+      let best = -1, bestD = Infinity;
+      CROWD.forEach((p, i) => { if (!used.has(i)) { const d = Math.hypot(p.x - c.x, p.y - c.y); if (d < bestD) { bestD = d; best = i; } } });
+      return best;
+    };
+    function toCrowd(c) {
+      const i = freeSpot(c);
+      if (i < 0) { c.state = "wait"; return; }
+      c.state = "crowd"; c.spot = i; c.tx = CROWD[i].x; c.ty = CROWD[i].y;
+    }
+    function fillLine() {
+      while (line.length < LINE_LEN) {
+        const crowd = cows.filter((c) => c.state === "crowd" || c.state === "wait");
+        if (!crowd.length) break;
+        // the waiting cow nearest the front of the line steps in next
+        const front = { x: LINE_X, y: LINE_Y0 + line.length * LINE_GAP };
+        crowd.sort((a, b) => Math.hypot(a.x - front.x, a.y - front.y) - Math.hypot(b.x - front.x, b.y - front.y));
+        const c = crowd[0];
+        c.state = "line"; c.spot = -1;
+        line.push(c);
+      }
+      line.forEach((c, k) => { c.tx = LINE_X; c.ty = LINE_Y0 + k * LINE_GAP; });
+    }
+    function moveToward(c, speed, dt) {
+      const dx = c.tx - c.x, dy = c.ty - c.y, d = Math.hypot(dx, dy);
+      if (d < 0.5) { c.x = c.tx; c.y = c.ty; return true; }
+      const s = Math.min(d, speed * dt);
+      c.x += (dx / d) * s; c.y += (dy / d) * s;
+      return d < 3;
+    }
+
     function step(now) {
       const dt = Math.min(0.05, (now - lastT) / 1000 || 0);
       lastT = now;
-      if (mode !== "closed" || cows.length < 70) {
-        if (now - lastSpawn > spawnEvery) { lastSpawn = now; if (!(mode === "closed" && queue.every((q) => q > 4))) spawn(); }
+
+      // new arrivals from the south
+      if (mode === "open" && now - lastSpawn > 260) { lastSpawn = now; spawn(); }
+      if (mode === "closed" && now - lastSpawn > 260 && !stack.every((q) => q > 3) && !cows.some((c) => c.state === "line" || c.state === "crowd")) { lastSpawn = now; spawn(); }
+      if (mode === "trickle" && now - lastSpawn > 2600 && waiting().length < 16) {
+        lastSpawn = now;
+        const c = spawn(200 - CW / 2 + (Math.random() * 120 - 60));
+        toCrowd(c); c.v = 55;
+        fillLine();
       }
+
+      // the front of the line crosses, one at a time
+      if (mode === "trickle" && line.length && now - lastRelease > 1900) {
+        const front = line[0];
+        if (Math.abs(front.x - front.tx) < 3 && Math.abs(front.y - front.ty) < 3) {
+          lastRelease = now;
+          front.state = "go";
+          line.shift();
+          fillLine();
+        }
+      }
+
       for (let i = cows.length - 1; i >= 0; i--) {
         const c = cows[i];
-        if (mode === "closed" && !c.stopped && c.y > 200 && c.lane >= 0) {
-          const stopY = 212 + queue[c.lane] * 34;
-          if (c.y - c.v * dt <= stopY) { c.y = stopY; c.stopped = true; queue[c.lane]++; }
+        if (c.state === "walk" || c.state === "walkAbove") {
+          if (mode === "closed" && c.state === "walk" && c.y > 200) {
+            const stopY = 212 + stack[c.lane] * 34;
+            if (c.y - c.v * dt <= stopY) { c.y = stopY; c.state = "wait"; stack[c.lane]++; }
+            else c.y -= c.v * dt;
+          } else c.y -= c.v * dt;
+          if (c.y < 200 && c.state === "walk") c.state = "walkAbove";
+        } else if (c.state === "go") {
+          c.x += (LINE_X - c.x) * Math.min(1, 6 * dt);   // stay centred in the gap
+          c.y -= 50 * dt;
+        } else if (c.state === "line" || c.state === "crowd") {
+          if (mode === "trickle") moveToward(c, c.state === "line" ? 45 : 60, dt);
         }
-        if (!c.stopped) c.y -= c.v * dt;
-        if (c.y < -30 || c.y > 410) { c.el.remove(); cows.splice(i, 1); continue; }
+        if (c.y < -30 || c.y > 420) { c.el.remove(); cows.splice(i, 1); line = line.filter((o) => o !== c); continue; }
         c.el.setAttribute("x", c.x.toFixed(1));
         c.el.setAttribute("y", c.y.toFixed(1));
       }
       if (running) requestAnimationFrame(step);
     }
-    function release() { cows.forEach((c) => (c.stopped = false)); queue.fill(0); }
+
     function setMode(m) {
+      if (m === mode) return;
+      const prev = mode;
       mode = m;
       scene.classList.toggle("closed", m === "closed");
       scene.classList.toggle("trickle", m === "trickle");
-      if (m === "open") { spawnEvery = 260; release(); }
-      if (m === "closed") spawnEvery = 260;
-      if (m === "trickle") { spawnEvery = 1600; release(); }
+      if (m === "open") {
+        // everyone waiting starts north again
+        cows.forEach((c) => { if (c.state !== "walkAbove" && c.state !== "go") c.state = "walk"; });
+        line = []; stack.fill(0);
+      }
+      if (m === "closed") {
+        // freeze where they are; the line and crowd stay put
+        cows.forEach((c) => {
+          if (c.state === "go" && c.y > 190) { c.state = "line"; }
+          if (c.state === "walk" && c.y <= 200) c.state = "walkAbove";
+        });
+        if (prev === "open") { line = []; stack.fill(0); }
+      }
+      if (m === "trickle") {
+        // the stuck herd funnels into one line; the rest crowd either side
+        const herd = waiting().sort((a, b) => a.y - b.y || Math.abs(a.x - LINE_X) - Math.abs(b.x - LINE_X));
+        line = [];
+        herd.forEach((c, k) => {
+          if (k < LINE_LEN) { c.state = "line"; line.push(c); }
+          else toCrowd(c);
+        });
+        fillLine();
+        lastRelease = performance.now();
+      }
     }
     function setStep(n) {
       setMode(n === 1 ? "open" : n === 4 ? "trickle" : "closed");
@@ -1241,7 +1331,7 @@ window.STORY_DATA = {
       });
     }
     if (reduceMotion) {
-      for (let i = 0; i < 18; i++) { spawn(); const c = cows[i]; c.lane = i % 6; c.x = LANES[c.lane] - 23; c.y = 214 + Math.floor(i / 6) * 34; c.el.setAttribute("x", c.x); c.el.setAttribute("y", c.y); }
+      for (let i = 0; i < 18; i++) { const c = spawn(); c.lane = i % 6; c.x = LANES[c.lane] - CW / 2; c.y = 214 + Math.floor(i / 6) * 34; c.state = "wait"; c.el.setAttribute("x", c.x); c.el.setAttribute("y", c.y); }
     } else {
       const sceneObserver = new IntersectionObserver(([e]) => {
         if (e.isIntersecting && !running) { running = true; lastT = performance.now(); requestAnimationFrame(step); }
