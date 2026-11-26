@@ -1,0 +1,27 @@
+{
+  "total": 142,
+  "domestic": 133,
+  "latestMonth": "November",
+  "latestMonthYear": "November 2026",
+  "latestMonthCases": 94,
+  "byMonth": [
+    {
+      "month": "August 2026",
+      "total": 4
+    },
+    {
+      "month": "September 2026",
+      "total": 4
+    },
+    {
+      "month": "October 2026",
+      "total": 40
+    },
+    {
+      "month": "November 2026",
+      "total": 94
+    }
+  ],
+  "checked": "2026-11-26",
+  "source": "https://www.aphis.usda.gov/animals/animal-health/livestock-and-poultry-disease/stop-screwworm/current-status/confirmed"
+}
