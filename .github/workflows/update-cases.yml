@@ -1,4 +1,4 @@
-# Every morning: pull the latest screwworm case count from USDA, save it,
+# Every evening: pull the latest domestic screwworm case count from USDA, save it,
 # and publish the site. Also publishes whenever you change files in the repo.
 #
 # One-time setup: Settings -> Pages -> Build and deployment -> Source: "GitHub Actions".
@@ -7,7 +7,7 @@ name: Update case count and publish
 
 on:
   schedule:
-    - cron: "17 12 * * *"   # every day at 12:17 UTC (7:17am Eastern)
+    - cron: "17 0 * * *"    # every day at 00:17 UTC (7:17pm Eastern), after USDA's 6pm update
   workflow_dispatch:
   push:
     branches: [main, master]
