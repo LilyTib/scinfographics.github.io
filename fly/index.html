@@ -82,7 +82,7 @@ a { color: inherit; }
 .tracker li.active .tracker__label { color: var(--ink); }
 
 /* ---------- HERO ---------- */
-.hero { position: relative; min-height: 100vh; padding: 72px 0 100px; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
+.hero { position: relative; min-height: 100vh; padding: 64px 0 84px; display: flex; flex-direction: column; justify-content: center; overflow: hidden; }
 .hero__grid { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 56px; align-items: center; position: relative; z-index: 2; }
 .kicker { font: 700 14px var(--sans); text-transform: uppercase; letter-spacing: .14em; color: var(--red); }
 .headline { font-family: var(--display); font-weight: 400; line-height: .98; font-size: clamp(50px, 7.6vw, 112px); margin: 8px 0 24px; text-wrap: balance; }
@@ -133,19 +133,19 @@ a { color: inherit; }
 @keyframes wiggle-r { from { transform: rotate(12deg); } to { transform: rotate(-14deg); } }
 
 /* ---------- CHAPTERS ---------- */
-.chapter { padding: 110px 0 90px; border-top: 1px solid var(--rule); }
+.chapter { padding: 76px 0 60px; border-top: 1px solid var(--rule); }
 .chapter__num { font: 700 14px var(--sans); text-transform: uppercase; letter-spacing: .14em; color: var(--red); margin-bottom: 10px; }
 .chapter__q { font-family: var(--display); font-weight: 400; font-size: clamp(36px, 4.6vw, 60px); line-height: 1.04; max-width: 20ch; text-wrap: balance; }
 .chapter__a { font-size: clamp(22px, 2.2vw, 28px); color: var(--ink-2); margin: 16px 0 0; max-width: 40ch; }
 .chapter__body { font-size: 21px; max-width: 60ch; margin-top: 28px; }
-.sub { font-size: 30px; margin: 80px 0 0; }
+.sub { font-size: 30px; margin: 56px 0 0; }
 
 /* ---------- SCROLLY (shared) ---------- */
-.scrolly { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 56px; margin-top: 36px; }
+.scrolly { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 56px; margin-top: 24px; }
 .scrolly__graphic { position: relative; }
 .sticky-box { position: sticky; top: 90px; height: calc(100vh - 120px); max-height: 640px; display: flex; flex-direction: column; justify-content: center; }
-.scrolly__steps { padding: 8vh 0 30vh; }
-.step { min-height: 70vh; display: flex; flex-direction: column; justify-content: center; opacity: .25; transition: opacity .5s; }
+.scrolly__steps { padding: 0 0 12vh; }
+.step { min-height: 54vh; display: flex; flex-direction: column; justify-content: center; opacity: .25; transition: opacity .5s; }
 .step.is-active { opacity: 1; }
 .step h3 { font-size: 30px; line-height: 1.12; margin-bottom: 12px; }
 .step p { font-size: 21px; }
@@ -325,7 +325,7 @@ a { color: inherit; }
 .relief__item h3 { font-size: 24px; margin-bottom: 6px; }
 .relief__item p { font-size: 20px; margin: 0; }
 
-.recap { margin-top: 80px; padding: 40px clamp(22px, 4vw, 48px); background: var(--cream); border-radius: 18px; }
+.recap { margin-top: 56px; padding: 40px clamp(22px, 4vw, 48px); background: var(--cream); border-radius: 18px; }
 .recap h2 { font-family: var(--display); font-weight: 400; font-size: clamp(30px, 3.6vw, 46px); line-height: 1.08; margin-bottom: 24px; text-wrap: balance; }
 .recap__chain { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
 .recap__chain li { display: flex; align-items: center; gap: 14px; font-size: 21px; }
@@ -343,7 +343,7 @@ a { color: inherit; }
 /* ---------- RESPONSIVE ---------- */
 @media (max-width: 900px) {
   body { font-size: 18px; }
-  .chapter { padding: 80px 0 64px; }
+  .chapter { padding: 52px 0 40px; }
   .hero { padding-top: 56px; }
   .hero__grid { grid-template-columns: 1fr; gap: 32px; }
   .receipt { justify-self: start; max-width: 320px; }
@@ -355,8 +355,8 @@ a { color: inherit; }
   .scrolly__graphic { position: sticky; top: 64px; height: 50vh; z-index: 3; background: linear-gradient(#fff 90%, rgba(255,255,255,0)); }
   .chapter--border .scrolly__graphic { background: linear-gradient(#fbfaf8 90%, rgba(251,250,248,0)); height: 56vh; }
   .sticky-box { position: relative; top: 0; height: 100%; max-height: none; }
-  .scrolly__steps { position: relative; z-index: 1; padding: 0 0 24vh; }
-  .step { min-height: 0; justify-content: flex-start; padding: 8vh 0 16vh; }
+  .scrolly__steps { position: relative; z-index: 1; padding: 0 0 8vh; }
+  .step { min-height: 0; justify-content: flex-start; padding: 4vh 0 10vh; }
   .step h3 { font-size: 25px; } .step p { font-size: 19px; }
   .chart-card { padding: 10px 10px 6px; }
   .chart svg text { font-size: 24px !important; }
@@ -950,8 +950,10 @@ window.STORY_DATA = {
     if (stop) stop.textContent = `United States · ${c.count.toLocaleString("en-US")} cases`;
   }
   showCases(D.usCases);
-  fetch("data/cases.json", { cache: "no-store" })
-    .then((r) => (r.ok ? r.json() : Promise.reject()))
+  // Look next to the page first, then one folder up (for a page kept in a subfolder like /fly/).
+  const loadJSON = (url) => fetch(url, { cache: "no-store" }).then((r) => (r.ok ? r.json() : Promise.reject()));
+  loadJSON("data/cases.json")
+    .catch(() => loadJSON("../data/cases.json"))
     .then((j) => {
       if (!(j.total > 0)) return;
       D.usCases = { count: j.total, checked: j.checked, latestMonth: j.latestMonth, latestMonthCases: j.latestMonthCases };
