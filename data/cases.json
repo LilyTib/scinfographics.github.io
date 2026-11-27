@@ -1,27 +1,38 @@
 {
-  "total": 143,
-  "domestic": 134,
+  "total": 178,
+  "active": 98,
+  "states": 3,
   "latestMonth": "November",
   "latestMonthYear": "November 2026",
-  "latestMonthCases": 95,
+  "latestMonthCases": 92,
+  "latestDetection": "2026-11-26",
   "byMonth": [
+    {
+      "month": "June 2026",
+      "total": 30
+    },
+    {
+      "month": "July 2026",
+      "total": 14
+    },
     {
       "month": "August 2026",
       "total": 4
     },
     {
       "month": "September 2026",
-      "total": 4
+      "total": 3
     },
     {
       "month": "October 2026",
-      "total": 40
+      "total": 35
     },
     {
       "month": "November 2026",
-      "total": 95
+      "total": 92
     }
   ],
-  "checked": "2026-11-27",
+  "checked": "2026-11-26",
+  "countBasis": "Domestic animal cases (USDA Case Type = Domestic)",
   "source": "https://www.aphis.usda.gov/animals/animal-health/livestock-and-poultry-disease/stop-screwworm/current-status/confirmed"
 }
