@@ -1,31 +1,57 @@
-# Checks USDA's screwworm tracker once a day and updates data/cases.json.
-name: Update screwworm case count
+# Every morning: pull the latest screwworm case count from USDA, save it,
+# and publish the site. Also publishes whenever you change files in the repo.
+#
+# One-time setup: Settings -> Pages -> Build and deployment -> Source: "GitHub Actions".
+# Run it by hand any time: Actions tab -> "Update case count and publish" -> Run workflow.
+name: Update case count and publish
 
 on:
   schedule:
-    - cron: "17 12 * * *"   # every day at 7:17am Eastern
+    - cron: "17 12 * * *"   # every day at 12:17 UTC (7:17am Eastern)
   workflow_dispatch:
+  push:
+    branches: [main, master]
 
 permissions:
-  contents: write
+  contents: write   # save data/cases.json back to the repo
+  pages: write      # publish the site
+  id-token: write   # required by the Pages deploy step
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
 
 jobs:
-  update:
+  update-and-publish:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
       - name: Pull latest count from USDA
+        if: github.event_name != 'push'
         run: python3 scripts/update_cases.py
 
-      - name: Save if the count changed
+      - name: Save the new count to the repo
+        if: github.event_name != 'push'
         run: |
           git config user.name "case-count-bot"
           git config user.email "actions@users.noreply.github.com"
           git add data/cases.json
           if git diff --cached --quiet; then
-            echo "Count unchanged; nothing to commit."
+            echo "Nothing new to save."
           else
             git commit -m "Update screwworm case count from USDA"
             git push
           fi
+
+      # Publish the site straight from this job. (A commit made by a workflow
+      # does not trigger GitHub's normal Pages rebuild, so we deploy here.)
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+      - id: deployment
+        uses: actions/deploy-pages@v4
