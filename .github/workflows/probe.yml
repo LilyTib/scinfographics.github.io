@@ -1,0 +1,11 @@
+name: Probe USDA dashboard (temporary)
+on:
+  push:
+    branches: [probe-case-count]
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: pip install --quiet TableauScraper
+      - run: python3 probe.py
