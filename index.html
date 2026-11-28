@@ -1,9 +1,398 @@
 <!DOCTYPE html>
-<html>
-<head><title>Sci Infographics</title></head>
-<body style="font-family: sans-serif; padding: 40px;">
-  <h1>Sci Infographics</h1>
-  <p><a href="yak/">Yak</a></p>
-  <p><a href="fly/">Tiny Fly</a></p>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sonam Choedon · Science Infographics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@700&family=Noto+Serif+Tibetan:wght@300&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+/* Theme: Ultramarine Ivory */
+      --bg: #f8f6f1;
+      --glow1: #e6e9fb;
+      --glow2: #f1ece2;
+      --ink: #0e1766;
+      --soft: #6d7090;
+      --accent: #1f35c4;
+      --gold: #b39a62;
+      --line: #e3e0d6;
+      --card: #ffffff;
+      --card-ink: #0e1766;
+      --card-soft: #6d7090;
+      --card-accent: #1f35c4;
+      --shadow: 14, 23, 102;
+      --art-sky1: #eef1fd;
+      --art-sky2: #cdd5f8;
+      --art-sun: #f3e7c6;
+      --art-accent: #1f35c4;
+      --art-back: #8e9be6;
+      --art-snow: #ffffff;
+      --art-front: #2a3fc9;
+      --art-ground: #0e1766;
+      --art-chart: #f3f4fb;
+      --art-grid: #dfe2f2;
+      --art-label: #3d4585;
+      --art-wing: #ffffff;
+      --art-fly: #0e1766;
+      --art-eye: #b39a62;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: "Inter", sans-serif;
+      min-height: 100vh;
+      background-image:
+        radial-gradient(circle at 15% 10%, var(--glow1) 0, transparent 40%),
+        radial-gradient(circle at 85% 90%, var(--glow2) 0, transparent 45%);
+    }
+
+    /* ---------- Header ---------- */
+    header {
+      text-align: center;
+      padding: 110px 20px 50px;
+    }
+    .tibetan {
+      font-family: "Noto Serif Tibetan", serif;
+      font-weight: 300;
+      font-size: clamp(1.3rem, 3.5vw, 1.9rem);
+      letter-spacing: 0.08em;
+      margin-top: 30px;
+      line-height: 1.2;
+      display: inline-block;
+      padding: 0 34px;
+      position: relative;
+      color: var(--accent);
+      animation: rise 1.2s ease-out both;
+    }
+    /* small lotus-like ornaments on each side */
+    .tibetan::before, .tibetan::after {
+      content: "༄";
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 0.6em;
+      color: var(--gold);
+    }
+    .tibetan::before { left: 0; }
+    .tibetan::after  { right: 0; transform: translateY(-50%) scaleX(-1); }
+    .tibetan-note {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 0.8rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--soft);
+      margin-top: -1px;
+      animation: rise 1.2s 0.15s ease-out both;
+    }
+    .name {
+      font-family: "Bodoni Moda", serif;
+      font-size: clamp(2.2rem, 6.5vw, 4.6rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      margin-right: -0.18em; /* keeps the spaced-out name truly centered */
+      line-height: 1.1;
+      animation: rise 1.2s ease-out both;
+    }
+    .tagline {
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-size: 1.35rem;
+      color: var(--soft);
+      margin-top: 22px;
+      animation: rise 1.2s 0.3s ease-out both;
+    }
+    .flourish {
+      width: 160px;
+      height: 1px;
+      background: var(--gold);
+      margin: 36px auto 0;
+      position: relative;
+      animation: rise 1.2s 0.5s ease-out both;
+    }
+    .flourish::after {
+      content: "✦";
+      position: absolute;
+      left: 50%; top: 50%;
+      transform: translate(-50%, -55%);
+      background: var(--bg);
+      color: var(--gold);
+      padding: 0 10px;
+      font-size: 0.9rem;
+    }
+
+    /* ---------- Projects ---------- */
+    main {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 30px 24px 80px;
+    }
+    .section-title {
+      font-family: "Cormorant Garamond", serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      text-align: center;
+      color: var(--soft);
+      margin-bottom: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+    }
+    .section-title::before, .section-title::after {
+      content: "";
+      width: 60px;
+      height: 1px;
+      background: var(--line);
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 32px;
+    }
+    .card {
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      color: var(--card-ink);
+      background: var(--card);
+      border-radius: 3px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      box-shadow: 0 30px 60px -35px rgba(var(--shadow), 0.30);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+      animation: rise 1s ease-out both;
+    }
+    .card:nth-child(1) { animation-delay: 0.7s; }
+    .card:nth-child(2) { animation-delay: 0.85s; }
+    .card:nth-child(3) { animation-delay: 1s; }
+    .info { flex: 1; display: flex; flex-direction: column; align-items: flex-start; }
+    .view { margin-top: auto !important; }
+    .info p { margin-bottom: 16px; }
+
+    /* "More coming soon" placeholder card */
+    .card.soon {
+      background: transparent;
+      border: 1px dashed var(--gold);
+      box-shadow: none;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 24px;
+      min-height: 100%;
+    }
+    .card.soon:hover { transform: none; box-shadow: none; }
+    .soon-mark {
+      font-size: 1.4rem;
+      color: var(--gold);
+    }
+    .soon h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 1.5rem;
+      color: var(--ink);
+      margin-top: 10px;
+    }
+    .soon p {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--soft);
+      margin-top: 8px;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 40px 70px -35px rgba(var(--shadow), 0.40);
+    }
+
+    /* Picture area: shows a picture if you add one, otherwise a live mini-preview of the page */
+    .thumb {
+      position: relative;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: var(--art-chart);
+    }
+    .thumb svg {
+      width: 100%; height: 100%;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .card:hover .thumb svg { transform: scale(1.05); }
+    .thumb img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .card:hover .thumb img { transform: scale(1.05); }
+    .thumb iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 1280px;
+      height: 960px;
+      border: 0;
+      transform-origin: top left;
+      pointer-events: none;
+    }
+
+    .info { padding: 20px 22px 24px; }
+    .info h2 {
+      font-family: "Cormorant Garamond", serif;
+      font-size: 1.3rem;
+      font-weight: 600;
+      line-height: 1.25;
+    }
+    .info p {
+      color: var(--card-soft);
+      font-size: 0.82rem;
+      line-height: 1.6;
+      margin-top: 8px;
+    }
+    .view {
+      display: inline-block;
+      margin-top: 16px;
+      padding-bottom: 3px;
+      font-size: 0.66rem;
+      font-weight: 500;
+      color: var(--card-accent);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--gold);
+      transition: letter-spacing 0.3s ease;
+    }
+    .card:hover .view { letter-spacing: 0.28em; }
+
+    footer {
+      text-align: center;
+      font-family: "Cormorant Garamond", serif;
+      font-style: italic;
+      color: var(--soft);
+      padding: 10px 0 50px;
+      letter-spacing: 0.05em;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1 class="name">Sonam Choedon</h1>
+    <p class="tibetan" lang="bo" title="Sonam Choedon, written in Tibetan">བསོད་ནམས་ཆོས་སྒྲོན།</p>
+    <p class="tibetan-note">my name, written in Tibetan</p>
+    <div class="flourish"></div>
+  </header>
+
+  <main>
+    <p class="section-title">Projects</p>
+
+    <div class="grid">
+
+      <!-- ===== PROJECT 1: YAK ===== -->
+      <a class="card" href="yak/">
+        <div class="thumb">
+          <!-- Cover art. To use a photo instead, upload it (e.g. yak/cover.jpg)
+               and replace the whole <svg> ... </svg> with:
+               <img src="yak/cover.jpg" alt="Yak project"> -->
+          <svg viewBox="0 10 400 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Snowy Himalayan peaks at sunrise">
+            <defs>
+              <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" style="stop-color:var(--art-sky1)"/>
+                <stop offset="1" style="stop-color:var(--art-sky2)"/>
+              </linearGradient>
+            </defs>
+            <rect width="400" height="300" fill="url(#sky)"/>
+            <circle cx="290" cy="95" r="34" opacity="0.9" style="fill:var(--art-sun)"/>
+            <!-- thin-air dots -->
+            <g opacity="0.35" style="fill:var(--art-accent)">
+              <circle cx="60" cy="50" r="2"/><circle cx="120" cy="80" r="1.5"/>
+              <circle cx="180" cy="40" r="2"/><circle cx="230" cy="70" r="1.5"/>
+              <circle cx="350" cy="45" r="2"/><circle cx="95" cy="120" r="1.5"/>
+            </g>
+            <!-- back range -->
+            <path d="M0 210 L70 130 L120 175 L190 95 L250 160 L300 120 L400 190 L400 300 L0 300 Z" style="fill:var(--art-back)"/>
+            <path d="M190 95 L172 116 L185 112 L195 122 L206 110 Z" style="fill:var(--art-snow)"/>
+            <path d="M70 130 L58 144 L70 141 L80 147 Z" style="fill:var(--art-snow)"/>
+            <path d="M300 120 L288 133 L300 130 L311 136 Z" style="fill:var(--art-snow)"/>
+            <!-- front range -->
+            <path d="M0 250 L90 185 L160 230 L240 170 L320 225 L400 200 L400 300 L0 300 Z" style="fill:var(--art-front)"/>
+            <path d="M240 170 L226 182 L240 179 L253 184 Z" style="fill:var(--art-snow)"/>
+            <!-- ground -->
+            <path d="M0 270 Q200 250 400 270 L400 300 L0 300 Z" style="fill:var(--art-ground)"/>
+            <text x="24" y="38" font-family="Cormorant Garamond, serif" font-size="15" letter-spacing="3" style="fill:var(--art-label)">3,000 – 6,000 M</text>
+          </svg>
+        </div>
+        <div class="info">
+          <h2>Why Yaks Thrive in Thin Air</h2>
+          <p>How yaks survive the cold, low-oxygen Tibetan Plateau: bigger hearts and lungs, a thick double coat, a winter-ready gut, and the genes behind it all.</p>
+          <span class="view">View project</span>
+        </div>
+      </a>
+
+      <!-- ===== PROJECT 2: TINY FLY ===== -->
+      <a class="card" href="fly/">
+        <div class="thumb">
+          <!-- Same here: replace the <svg> ... </svg> with
+               <img src="fly/cover.jpg" alt="Tiny Fly project"> -->
+          <svg viewBox="0 32 400 250" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A small fly above a rising beef price line">
+            <rect width="400" height="300" style="fill:var(--art-chart)"/>
+            <!-- grid -->
+            <g stroke-width="1" style="stroke:var(--art-grid)">
+              <line x1="40" y1="80" x2="370" y2="80"/>
+              <line x1="40" y1="140" x2="370" y2="140"/>
+              <line x1="40" y1="200" x2="370" y2="200"/>
+              <line x1="40" y1="250" x2="370" y2="250"/>
+            </g>
+            <!-- rising price line -->
+            <path d="M40 235 L95 228 L150 222 L205 205 L260 180 L315 140 L360 100" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" style="stroke:var(--art-accent)"/>
+            <circle cx="40" cy="235" r="6" stroke-width="3" style="fill:var(--art-chart);stroke:var(--art-accent)"/>
+            <circle cx="360" cy="100" r="6" style="fill:var(--art-accent)"/>
+            <text x="40" y="270" font-family="Cormorant Garamond, serif" font-size="16" style="fill:var(--art-label)">2019 · $5.70/lb</text>
+            <text x="360" y="85" text-anchor="end" font-family="Cormorant Garamond, serif" font-size="16" font-weight="600" style="fill:var(--card-ink)">2026 · $9.64/lb</text>
+            <!-- the tiny fly -->
+            <g transform="translate(150 95) rotate(-18)">
+              <ellipse cx="-11" cy="-9" rx="15" ry="7" opacity="0.75" stroke-width="1" transform="rotate(-30 -11 -9)" style="fill:var(--art-wing);stroke:var(--card-soft)"/>
+              <ellipse cx="11" cy="-9" rx="15" ry="7" opacity="0.75" stroke-width="1" transform="rotate(30 11 -9)" style="fill:var(--art-wing);stroke:var(--card-soft)"/>
+              <ellipse cx="0" cy="4" rx="6" ry="13" style="fill:var(--art-fly)"/>
+              <circle cx="0" cy="-11" r="6" style="fill:var(--art-fly)"/>
+              <circle cx="-3.5" cy="-13" r="2.6" style="fill:var(--art-eye)"/>
+              <circle cx="3.5" cy="-13" r="2.6" style="fill:var(--art-eye)"/>
+            </g>
+            <path d="M120 118 q-20 15 -40 8 q-18 -6 -30 10" fill="none" stroke-width="1.2" stroke-dasharray="3 5" style="stroke:var(--card-soft)"/>
+          </svg>
+        </div>
+        <div class="info">
+          <h2>A Tiny Fly Is Making Your Beef Bill Worse</h2>
+          <p>How the New World screwworm, a flesh-eating parasite spreading north from Central America, shut the border to Mexican cattle and pushed U.S. beef prices even higher.</p>
+          <span class="view">View project</span>
+        </div>
+      </a>
+
+      <!-- ===== PLACEHOLDER: MORE COMING SOON ===== -->
+      <div class="card soon">
+        <span class="soon-mark">✦</span>
+        <h2>More Coming Soon</h2>
+        <p>New projects in progress</p>
+      </div>
+
+      <!-- To add a new project later, copy one whole <a class="card"> ... </a> block above,
+           paste it ABOVE the "More coming soon" block, and change the folder name, title and description. -->
+
+    </div>
+  </main>
+
+  <footer>© Sonam Choedon</footer>
+
 </body>
 </html>
